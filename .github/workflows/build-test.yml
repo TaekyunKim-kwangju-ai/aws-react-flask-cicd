@@ -49,12 +49,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Set PYTHONPATH and Run backend tests
-      working-directory: ./backend
-      run: |
-        export PYTHONPATH=$PYTHONPATH:$(pwd)
-        pytest
-
     - name: Run backend tests
       working-directory: ./backend
+      env:
+        PYTHONPATH: "./backend"
+        AWS_DEFAULT_REGION: "ap-northeast-2"
       run: pytest
