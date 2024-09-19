@@ -1,12 +1,12 @@
 import pytest
 from app import app
-from moto import mock_dynamodb2
+from moto import mock_dynamodb
 import boto3
 
 # DynamoDB mocking 설정
 @pytest.fixture(scope='function')
 def dynamodb():
-    with mock_dynamodb2():
+    with mock_dynamodb():
         dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-2')
         table = dynamodb.create_table(
             TableName='diaries',
