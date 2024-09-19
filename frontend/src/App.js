@@ -9,18 +9,18 @@ function App() {
 
   const API_URL = process.env.REACT_APP_API_URL;
 
-  useEffect(() => {
-    fetchDiaries();
-  }, []);
-
-  const fetchDiaries = async () => {
+  const fetchDiaries = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}/diaries`);
       setDiaries(response.data);
     } catch (error) {
       console.error('Error fetching diaries', error);
     }
-  };
+  }, [API_URL]); // fetchDiaries 함수가 API_URL에 의존하도록 설정
+
+  useEffect(() => {
+    fetchDiaries();
+  }, [fetchDiaries]);
 
   const handleCreateDiary = async () => {
     try {
