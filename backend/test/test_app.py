@@ -7,7 +7,7 @@ import boto3
 @pytest.fixture(scope='function')
 def dynamodb():
     with mock_dynamodb2():
-        dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+        dynamodb = boto3.resource('dynamodb', region_name='ap-northeast-2')
         table = dynamodb.create_table(
             TableName='diaries',
             KeySchema=[{'AttributeName': 'id', 'KeyType': 'HASH'}],
@@ -16,6 +16,7 @@ def dynamodb():
         )
         table.wait_until_exists()
         yield table
+        table.delete()
 
 @pytest.fixture
 def client(dynamodb):
