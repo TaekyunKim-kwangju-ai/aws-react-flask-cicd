@@ -2,3 +2,4 @@ flask
 pytest
 flask-cors
 boto3
+moto
